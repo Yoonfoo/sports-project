@@ -3,7 +3,7 @@ import { NextRequest } from "next/server"
 export async function GET(request: NextRequest) {
 
     const gameID = request.nextUrl.searchParams.get("gameID")
-    const url = "https://cdn.nba.com/static/json/liveData/boxscore/boxscore_0021900001.json"
+    const url = `https://cdn.nba.com/static/json/liveData/boxscore/boxscore_${gameID}.json`
 
     const res = await fetch(url,{
         method: 'GET',
