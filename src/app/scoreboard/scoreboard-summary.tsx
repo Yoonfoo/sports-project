@@ -29,7 +29,7 @@ const ScoreboardSummary: FC<ScoreboardSummaryProps> = ({schedulesGames, todaySco
                     </div>
                     <div className="flex flex-row justify-center items-center">
                         <div className="p-2">
-                            <img src={teamLogos[game.homeTeam.teamTricode]} alt={game.homeTeam.teamName} width={64} height={60} className="min-w-16 min-h-16"/>
+                            <Image src={teamLogos[game.homeTeam.teamTricode]} alt={game.homeTeam.teamName} width={64} height={60} className="min-w-16 min-h-16"/>
                         </div>
                         <div className="items-center flex">
                             <span className="flex justify-center items-center w-16 h-16 p-8 text-3xl width-16">{game.homeTeam.score}</span>
@@ -37,7 +37,7 @@ const ScoreboardSummary: FC<ScoreboardSummaryProps> = ({schedulesGames, todaySco
                             <span className="flex justify-center items-center w-16 h-16 p-8 text-3xl width-16">{game.awayTeam.score}</span>
                         </div>
                         <div className="p-2">
-                            <img src={teamLogos[game.awayTeam.teamTricode]} alt={game.awayTeam.teamName} width={64} height={64} className="min-w-16 min-h-16"/>
+                            <Image src={teamLogos[game.awayTeam.teamTricode]} alt={game.awayTeam.teamName} width={64} height={64} className="min-w-16 min-h-16"/>
                         </div>
                     </div>
                     <div>
