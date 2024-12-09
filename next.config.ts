@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
         pathname: "/logos/nba/streams/L/nss-team-**.png",
       }
     ]
+  },
+  env: {
+    NEXT_PUBLIC_API_URL: "sports-project-nu.vercel.app"
   }
 };
 
