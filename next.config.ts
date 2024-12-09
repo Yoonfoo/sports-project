@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
     ]
   },
   env: {
-    NEXT_PUBLIC_API_URL: "sports-project-nu.vercel.app"
+    NEXT_PUBLIC_API_URL: "http://localhost:3000"
   }
 };
 
