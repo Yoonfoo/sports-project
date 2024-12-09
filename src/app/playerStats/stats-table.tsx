@@ -71,7 +71,7 @@ export default function PlayerStatsTable () {
 
     useEffect(() => {
         const fetchPlayerStats = async () => {
-            const res = await fetch("http://localhost:3000/api/nba/league-dash-player-stats");
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/league-dash-player-stats`);
             const data = await res.json();
             setPlayerData(data);
         };

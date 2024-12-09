@@ -4,7 +4,7 @@ import schedules from "../interface-definition/scoreboard-interface";
 import { todayScoreboards } from "../interface-definition/scoreboard-interface";
 
 async function getSchedule(): Promise<schedules> {
-    const res = await fetch("http://localhost:3000/api/nba/schedule")
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/schedule`)
     if(!res.ok){
         throw new Error('Failed to fetch schedule')
     }
@@ -12,7 +12,7 @@ async function getSchedule(): Promise<schedules> {
 }
 
 async function getTodayScoreboard(): Promise<todayScoreboards> {
-    const res = await fetch("http://localhost:3000/api/nba/today-scoreboard-summary")
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/today-scoreboard-summary`)
     if(!res.ok){
         throw new Error('Failed to fetch today scoreboard')
     }
