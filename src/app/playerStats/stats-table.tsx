@@ -67,7 +67,7 @@ const playerStatsHeader: tableHeaders = {
 }
 
 export default function PlayerStatsTable () {
-    const [playerData, setPlayerData] = useState<any[]>([]);
+    const [playerData, setPlayerData] = useState<Array<string[]|number[]>>([]);
 
     useEffect(() => {
         const fetchPlayerStats = async () => {

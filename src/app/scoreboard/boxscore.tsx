@@ -99,7 +99,7 @@ const BoxScore: FC<BoxScoreProps> = ({boxscore ,teamLogos}) => {
                     </thead>
                     <tbody>
                         {selectTeamBoxScore.players.map((player) => (
-                            <tr>
+                            <tr key={player.personId}>
                                 <td className="flex px-4 py-2 justify-between border-r-2 border-black">
                                     {player.name}
                                     <span className="px-4 font-bold">{player.position}</span>    

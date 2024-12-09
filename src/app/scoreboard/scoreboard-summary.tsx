@@ -22,7 +22,7 @@ const ScoreboardSummary: FC<ScoreboardSummaryProps> = ({schedulesGames, todaySco
         <>
         {
             games?.map((game:game | scoreboard) => (
-                <div className="border-2 px-6 py-2" onClick={()=>setGameId(game.gameId)}>
+                <div key={game.gameId} className="border-2 px-6 py-2" onClick={()=>setGameId(game.gameId)}>
                     <div className="flex flex-row justify-start px-2 py-2">
                         <span className="text-md">{game.gameLabel}&nbsp;</span>
                         <span className="text-md">{game.gameStatusText}</span>
