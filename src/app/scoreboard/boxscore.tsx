@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { FC, useState, useEffect } from 'react'
-import boxscoreGame, { team } from '../interface-definition/boxscore-interface'
+import boxscoreGame, { team } from '../../../interface-definition/boxscore-interface'
 
 type BoxScoreProps = {
     boxscore: boxscoreGame

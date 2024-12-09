@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Image from "next/image"
-import schedules, { game, todayScoreboards, scoreboard } from "../interface-definition/scoreboard-interface";
+import schedules, { game, todayScoreboards, scoreboard } from "../../../interface-definition/scoreboard-interface";
 
 type ScoreboardSummaryProps = {
     schedulesGames: schedules,

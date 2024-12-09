@@ -1,7 +1,7 @@
-import Links from "../projectLinks/links";
+import Links from "../../../projectLinks/links";
 import BoxScoreMain from "./boxscore-main";
-import schedules from "../interface-definition/scoreboard-interface";
-import { todayScoreboards } from "../interface-definition/scoreboard-interface";
+import schedules from "../../../interface-definition/scoreboard-interface";
+import { todayScoreboards } from "../../../interface-definition/scoreboard-interface";
 
 async function getSchedule(): Promise<schedules> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/schedule`)

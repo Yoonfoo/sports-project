@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { todayScoreboards } from '../interface-definition/scoreboard-interface';
-import schedules from '../interface-definition/scoreboard-interface';
-import boxscoreGame from '../interface-definition/boxscore-interface';
+import { todayScoreboards } from '../../../interface-definition/scoreboard-interface';
+import schedules from '../../../interface-definition/scoreboard-interface';
+import boxscoreGame from '../../../interface-definition/boxscore-interface';
 import BoxScore from './boxscore';
 import ScoreboardSummary from './scoreboard-summary';
 import PopupCalendar from './popup-calendar';
