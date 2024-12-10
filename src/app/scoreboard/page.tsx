@@ -9,11 +9,7 @@ async function getSchedule(): Promise<schedules> {
     //     throw new Error('Failed to fetch schedule')
     // }
     // return res.json()
-    const res = await fetch('https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_32.json',{
-        headers:{
-            "referer": "https://www.nba.com/",
-        }
-    })
+    const res = await fetch('https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_32.json')
     if(!res.ok){
         throw new Error('Failed to fetch schedule')
     }
