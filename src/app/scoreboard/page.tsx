@@ -9,7 +9,11 @@ async function getSchedule(): Promise<schedules> {
     //     throw new Error('Failed to fetch schedule')
     // }
     // return res.json()
-    const res = await fetch('https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_32.json')
+    const res = await fetch('https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_32.json',{
+        headers:{
+            "referer": "https://www.nba.com/",
+        }
+    })
     if(!res.ok){
         throw new Error('Failed to fetch schedule')
     }
@@ -19,11 +23,7 @@ async function getSchedule(): Promise<schedules> {
 }
 
 async function getTodayScoreboard(): Promise<todayScoreboards> {
-    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/today-scoreboard-summary`)
-    // if(!res.ok){
-    //     throw new Error('Failed to fetch today scoreboard')
-    // }
-    // return res.json()
+
     const res = await fetch('https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json',{
         headers:{
             "referer": "https://www.nba.com/",
