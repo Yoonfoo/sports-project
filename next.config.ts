@@ -13,7 +13,7 @@ const nextConfig: NextConfig = {
     ]
   },
   env: {
-    NEXT_PUBLIC_API_URL: "https://sports-project-nu.vercel.app"
+    NEXT_PUBLIC_API_URL: "https://sports-project-delta.vercel.app"
   }
 };
 
