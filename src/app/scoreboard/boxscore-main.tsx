@@ -35,7 +35,6 @@ export default function BoxScoreMain({schedules, todayScoreboard, teamLogos}: Bo
             setSelectedGameBoxScore(await res.json())
         }
         if(selectedGameID) fetchGame()
-        console.log(latestMatches)
         if(Array.isArray(latestMatches) && latestMatches.length === 0){
             const latestMatchDay = subDays(new Date(), 1)
             

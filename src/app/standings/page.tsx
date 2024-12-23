@@ -1,7 +1,7 @@
 import { teamStandings } from '../../../interface-definition/standings-type'
 import StandingMain from './standing-main';
 
-async function getStandings() {
+async function getStandings(): Promise<teamStandings> {
     const res = await fetch('https://stats.nba.com/stats/leaguestandingsv3?GroupBy=conf&LeagueID=00&Season=2024-25&SeasonType=Regular Season&Section=overall', {
       headers: {
         'referer': 'https://www.nba.com/',
@@ -14,7 +14,7 @@ async function getStandings() {
 
 export default async function Standings() {
 
-    const standing : teamStandings = await getStandings()
+    const standing = await getStandings()
 
     return (
         <div>
