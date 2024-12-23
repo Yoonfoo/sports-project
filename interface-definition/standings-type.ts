@@ -1,9 +1,9 @@
-// type standing = {
-//     [key: string]: string | number | null,
-//     2: number
-//     3: string
-// }
+type standing = {
+    [key: string]: string | number | null,
+    2: number
+    3: string
+}
 
-type teamStandings = ([number | string | null][])[]
+type teamStandings = Array<standing>
 
-export type { teamStandings }
+export type { standing, teamStandings }
