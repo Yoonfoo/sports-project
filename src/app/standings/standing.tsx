@@ -1,4 +1,4 @@
-import { standing, teamStandings } from '../../../interface-definition/standings-type'
+import { teamStandings } from '../../../interface-definition/standings-type'
 import Links from "../../../projectLinks/links";
 import Image from 'next/image'
 
@@ -28,13 +28,13 @@ export default function Standing({ standings, conference }: standingProps) {
                     <span className="w-24 font-bold">Strk</span>
                 </div>
             </div>
-            {standings.map((standing: standing) => (
+            {standings.map((standing) => (
                 standing[6] === conference 
                 &&
                 <div key={standing[2]} className="flex flex-row justify-between w-full h-16 border-y">
                     <div className="flex flex-row w-1/2 items-center">
                         <span className="pl-4">{indexCounter++}</span>
-                        <Image src={teamLogos[standing[2]]} alt={standing[3]} width={48} height={48} className="pl-4"/>
+                        <Image src={teamLogos[standing[2]]} alt={standing[3].toString()} width={48} height={48} className="pl-4"/>
                         <span className="pl-4">{standing[3]} {standing[4]}</span>
                     </div>
                     <div className="w-1/2 flex flex-row items-center">
