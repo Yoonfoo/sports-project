@@ -4,15 +4,12 @@ import schedules from "../../../interface-definition/scoreboard-interface";
 import { todayScoreboards } from "../../../interface-definition/scoreboard-interface";
 
 async function getSchedule(): Promise<schedules> {
-    // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/schedule`)
-    // if(!res.ok){
-    //     throw new Error('Failed to fetch schedule')
-    // }
-    // return res.json()
+
     const res = await fetch('https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_32.json',{
         headers:{
             "referer": "https://www.nba.com/",
-        }
+        },
+        cache: "no-store",
     })
     if(!res.ok){
         throw new Error('Failed to fetch schedule')
@@ -27,6 +24,9 @@ async function getTodayScoreboard(): Promise<todayScoreboards> {
     const res = await fetch('https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json',{
         headers:{
             "referer": "https://www.nba.com/",
+        },
+        next: {
+            revalidate: 15
         }
     })
     if(!res.ok){
@@ -44,9 +44,7 @@ export default async function Scoreboard(){
     const teamLogos = Links.TEAM_LOGO as Record<string, string>
 
     return(
-        <div>
-            <BoxScoreMain schedules={schedules} todayScoreboard={todayScoreboards} teamLogos={teamLogos}/>
-        </div>
+        <BoxScoreMain schedules={schedules} todayScoreboard={todayScoreboards} teamLogos={teamLogos}/>
     )
 }
 

@@ -27,14 +27,14 @@ const BoxScore: FC<BoxScoreProps> = ({boxscore ,teamLogos}) => {
                 </div>
                 <div className="flex justify-evenly p-8 py-16 border-t-2 border-b-2 border-black mt-8 mb-8">
                     <div className="flex flex-col items-center text-xl">
-                        <Image src={teamLogos[boxscore.homeTeam.teamTricode]} alt={`${boxscore.homeTeam.teamCity} ${boxscore.homeTeam.teamName}`} height={112} width={112} className="max-w-28 max-h-28"/>
+                        <Image src={teamLogos[boxscore.homeTeam.teamId]} alt={`${boxscore.homeTeam.teamCity} ${boxscore.homeTeam.teamName}`} height={112} width={112} className="max-w-28 max-h-28"/>
                         <span className="w-96 flex justify-center">{boxscore.homeTeam.teamCity + " " + boxscore.homeTeam.teamName}</span>
                     </div>
                     <div className="flex justify-center items-center text-5xl">
                         <span>{boxscore.homeTeam.score} - {boxscore.awayTeam.score}</span>
                     </div>
                     <div className="flex flex-col items-center text-xl">
-                        <Image src={teamLogos[boxscore.awayTeam.teamTricode]} alt={`${boxscore.awayTeam.teamCity} ${boxscore.awayTeam.teamName}`} height={112} width={112} className="max-w-28 max-h-28"/>
+                        <Image src={teamLogos[boxscore.awayTeam.teamId]} alt={`${boxscore.awayTeam.teamCity} ${boxscore.awayTeam.teamName}`} height={112} width={112} className="max-w-28 max-h-28"/>
                         <span className="w-96 flex justify-center">{boxscore.awayTeam.teamCity + " " + boxscore.awayTeam.teamName}</span>
                     </div>
                 </div>

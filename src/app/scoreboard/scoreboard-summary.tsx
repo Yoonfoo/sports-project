@@ -1,10 +1,11 @@
 import { FC } from "react";
 import Image from "next/image"
+import { subDays, format } from "date-fns";
 import schedules, { game, todayScoreboards, scoreboard } from "../../../interface-definition/scoreboard-interface";
 
 type ScoreboardSummaryProps = {
     schedulesGames: schedules,
-    todayScoreboard: todayScoreboards
+    todayScoreboard: todayScoreboards | game[],
     date: string,
     teamLogos: Record<string, string>
     setGameId: (gameId: string) => void
@@ -13,7 +14,7 @@ type ScoreboardSummaryProps = {
 const ScoreboardSummary: FC<ScoreboardSummaryProps> = ({schedulesGames, todayScoreboard, date, teamLogos, setGameId}) => {
     
     
-    const games = date == `${new Date().getMonth()+1}/${(new Date().getDate()-1).toString().padStart(2,'0')}/${new Date().getFullYear()} 00:00:00`
+    const games = date == format(subDays(new Date(), 1), 'MM/dd/yyyy 00:00:00')
                         ? todayScoreboard
                         :schedulesGames.find((schedule)=> schedule.gameDate == date)?.games
 
@@ -29,7 +30,7 @@ const ScoreboardSummary: FC<ScoreboardSummaryProps> = ({schedulesGames, todaySco
                     </div>
                     <div className="flex flex-row justify-center items-center">
                         <div className="p-2">
-                            <Image src={teamLogos[game.homeTeam.teamTricode]} alt={game.homeTeam.teamName} width={64} height={60} className="min-w-16 min-h-16"/>
+                            <Image src={teamLogos[game.homeTeam.teamId]} alt={game.homeTeam.teamName} width={64} height={60} className="min-w-16 min-h-16"/>
                         </div>
                         <div className="items-center flex">
                             <span className="flex justify-center items-center w-16 h-16 p-8 text-3xl width-16">{game.homeTeam.score}</span>
@@ -37,7 +38,7 @@ const ScoreboardSummary: FC<ScoreboardSummaryProps> = ({schedulesGames, todaySco
                             <span className="flex justify-center items-center w-16 h-16 p-8 text-3xl width-16">{game.awayTeam.score}</span>
                         </div>
                         <div className="p-2">
-                            <Image src={teamLogos[game.awayTeam.teamTricode]} alt={game.awayTeam.teamName} width={64} height={64} className="min-w-16 min-h-16"/>
+                            <Image src={teamLogos[game.awayTeam.teamId]} alt={game.awayTeam.teamName} width={64} height={64} className="min-w-16 min-h-16"/>
                         </div>
                     </div>
                     <div>
