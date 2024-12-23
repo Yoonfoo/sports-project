@@ -34,7 +34,7 @@ export default function Standing({ standings, conference }: standingProps) {
                 <div key={standing[2]} className="flex flex-row justify-between w-full h-16 border-y">
                     <div className="flex flex-row w-1/2 items-center">
                         <span className="pl-4">{indexCounter++}</span>
-                        <Image src={teamLogos[standing[2]]} alt={standing[3].toString()} width={48} height={48} className="pl-4"/>
+                        {standing[2] && standing[3] &&<Image src={teamLogos[standing[2]]} alt={standing[3].toString()} width={48} height={48} className="pl-4"/>}
                         <span className="pl-4">{standing[3]} {standing[4]}</span>
                     </div>
                     <div className="w-1/2 flex flex-row items-center">

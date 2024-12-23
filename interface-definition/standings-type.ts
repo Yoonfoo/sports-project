@@ -4,6 +4,6 @@
 //     3: string
 // }
 
-type teamStandings = Array<string[]|number[]>
+type teamStandings = Array<string[]|number[]|null[]>
 
 export type { teamStandings }
