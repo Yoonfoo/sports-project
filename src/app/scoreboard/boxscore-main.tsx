@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { todayScoreboards } from '../../../interface-definition/scoreboard-interface';
-import schedules, { schedule, game } from '../../../interface-definition/scoreboard-interface';
+import schedules, { game } from '../../../interface-definition/scoreboard-interface';
 import boxscoreGame from '../../../interface-definition/boxscore-interface';
 import BoxScore from './boxscore';
 import ScoreboardSummary from './scoreboard-summary';

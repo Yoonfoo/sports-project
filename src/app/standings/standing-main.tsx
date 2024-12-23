@@ -1,7 +1,7 @@
 'use client'
 import Standing from './standing';
 import { useState } from 'react'
-import { standing, teamStandings } from '../../../interface-definition/standings-type'
+import { teamStandings } from '../../../interface-definition/standings-type'
 
 type standingProps = {
     standings: teamStandings

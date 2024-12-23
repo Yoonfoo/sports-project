@@ -1,4 +1,4 @@
-import { standing, teamStandings } from '../../../interface-definition/standings-type'
+import { teamStandings } from '../../../interface-definition/standings-type'
 import StandingMain from './standing-main';
 
 export async function getStandings() {
