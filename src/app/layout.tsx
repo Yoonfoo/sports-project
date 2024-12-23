@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import logoPic from "../../public/sports-website-logo-transformed.webp"
+import Image from "next/image";
+import Link from "next/link";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +31,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="size-full">
+          <div className="flex flex-row bg-gray-200 h-16 items-center sticky top-0">
+            <Image src={logoPic} alt="logo" width={40} height={20} className="mx-8"/>
+            <Link href="/" className="mx-8 text-md font-sans">Home</Link>
+            <Link href="/player" className="mx-8 text-md font-sans">Player</Link>
+            <Link href="/playerStats" className="mx-8 text-md font-sans">Stats</Link>
+            <Link href="/scoreboard" className="mx-8 text-md font-sans">Schedule</Link>
+            <Link href="/standings" className="mx-8 text-md font-sans">Standings</Link>
+          </div>
+          {children}
+        </div>
       </body>
     </html>
   );
