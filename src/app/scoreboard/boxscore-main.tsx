@@ -27,8 +27,9 @@ export default function BoxScoreMain({schedules, todayScoreboard, teamLogos}: Bo
 
     useEffect(() => {
         const fetchGame = async () => {
-            const res = await fetch(`http://localhost:3000/api/nba/boxscore?gameID=${selectedGameID}`)
-            // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/boxscore?gameID=${selectedGameID}`)
+            const res = process.env.NODE_ENV === 'development'
+            ? await fetch(`http://localhost:3000/api/nba/boxscore?gameID=${selectedGameID}`)
+            : await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/boxscore?gameID=${selectedGameID}`)
             if(!res.ok){
                 throw new Error('Failed to fetch boxscore')
             }

@@ -25,9 +25,6 @@ async function getTodayScoreboard(): Promise<todayScoreboards> {
         headers:{
             "referer": "https://www.nba.com/",
         },
-        next: {
-            revalidate: 15
-        }
     })
     if(!res.ok){
         throw new Error('Failed to fetch today scoreboard')
@@ -36,6 +33,8 @@ async function getTodayScoreboard(): Promise<todayScoreboards> {
     const games = data.scoreboard.games
     return games
 }
+
+export const revalidate = 30
 
 export default async function Scoreboard(){
     
