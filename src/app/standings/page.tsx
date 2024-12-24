@@ -7,6 +7,9 @@ async function getStandings(): Promise<teamStandings> {
         'referer': 'https://www.nba.com/',
       },
     })
+    if(!res.ok) {
+        throw new Error('Failed to fetch standings')
+    }
     const data = await res.json()
     const standings = data.resultSets[0].rowSet
     return standings
