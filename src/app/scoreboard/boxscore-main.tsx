@@ -8,51 +8,69 @@ import ScoreboardSummary from './scoreboard-summary';
 import PopupCalendar from './popup-calendar';
 import ShowCalendarButton from './show-calendar-button';
 import { SlArrowDown } from 'react-icons/sl'
-import { format, subDays } from 'date-fns';
 
 interface BoxScoreMainProps {
-    schedules: schedules,
     todayScoreboard: todayScoreboards,
     teamLogos: Record<string, string>
 }
 
-export default function BoxScoreMain({schedules, todayScoreboard, teamLogos}: BoxScoreMainProps) {
+async function fetchGame(selectedGameID: string): Promise<boxscoreGame> {
+    const res = process.env.NODE_ENV === 'development'
+    ? await fetch(`http://localhost:3000/api/nba/boxscore?gameID=${selectedGameID}`,{
+        headers:{
+            "referer": "http://www.nba.com/",
+        },
+        cache: "force-cache",
+    })
+    : await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/boxscore?gameID=${selectedGameID}`, {
+        headers:{
+            "referer": "http://www.nba.com/",
+        },
+        cache: "force-cache",
+    })
+    if(!res.ok){
+        throw new Error('Failed to fetch boxscore')
+    }
+    return await res.json()
+}
 
-    const [selectedDate, setSelectedDate] = useState<string>(`${new Date().getMonth()+1}/${(new Date().getDate()-1).toString().padStart(2,'0')}/${new Date().getFullYear()} 00:00:00`)
+async function fetchSchedule(): Promise<schedules> {
+    const res = process.env.NODE_ENV === 'development'
+    ? await fetch('http://localhost:3000/api/nba/schedule',{
+        headers:{
+            "referer": "http://www.nba.com/",
+        },
+        cache: "force-cache",
+    })
+    : await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/schedule`, {
+        headers:{
+            "referer": "http://www.nba.com/",
+        },
+        cache: "force-cache",
+    })
+    if(!res.ok){
+        throw new Error('Failed to fetch schedule')
+    }
+    return await res.json()
+}
+
+export default function BoxScoreMain({todayScoreboard, teamLogos}: BoxScoreMainProps) {
+
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
     const [showCalendarBar, setShowCalendarBar] = useState<boolean>(false);
+
     const [selectedGameBoxScore, setSelectedGameBoxScore] = useState<boxscoreGame>()
-    const [selectedGameID, setSelectedGameID] = useState<string>('')
     const [latestMatches, setLatestMatches] = useState<todayScoreboards | game[]>(todayScoreboard)
+    const [schedulesMatches, setSchedulesMatches] = useState<schedules>()
 
     useEffect(() => {
-        const fetchGame = async () => {
-            const res = process.env.NODE_ENV === 'development'
-            ? await fetch(`http://localhost:3000/api/nba/boxscore?gameID=${selectedGameID}`)
-            : await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/boxscore?gameID=${selectedGameID}`)
-            if(!res.ok){
-                throw new Error('Failed to fetch boxscore')
-            }
-            setSelectedGameBoxScore(await res.json())
-        }
-        if(selectedGameID) fetchGame()
-        if(Array.isArray(latestMatches) && latestMatches.length === 0){
-            const latestMatchDay = subDays(new Date(), 1)
-            
-            for(let i=1;;i++){
-                const latestMatch = schedules.find(game => game.gameDate == format(latestMatchDay, 'MM/dd/yyyy 00:00:00'))
-                console.log(latestMatch)
-                if(latestMatch){
-                    setLatestMatches(latestMatch.games)
-                    break
-                }
-                else latestMatchDay.setDate(latestMatchDay.getDate()-1)
-            }
-
-        }
+    const fetchScheduleData = async () => {
+        const schedule = await fetchSchedule()
+        setSchedulesMatches(schedule);
+    } 
+    fetchScheduleData();
         
-        // else setSelectedDate(`${new Date().getMonth()+1}/${(new Date().getDate()-2).toString().padStart(2,'0')}/${new Date().getFullYear()} 00:00:00`)
-    },[selectedGameID])
+    }, []);
 
     const handleShowCalendar = () => {
         setShowCalendar(prev => !prev)
@@ -62,28 +80,61 @@ export default function BoxScoreMain({schedules, todayScoreboard, teamLogos}: Bo
         setShowCalendarBar(prev => !prev)
     }
 
-    const handleShowBoxScore = (gameId: string) => {
-        setSelectedGameID(gameId)
+    const handleShowScoreboard = () => {
+        const scoreboard = document.getElementById("scoreboard")
+        scoreboard?.classList.toggle("hidden")
+    }
+
+    const handleShowBoxScore = async(gameId: string) => {
+        setSelectedGameBoxScore(await fetchGame(gameId))
+        handleShowScoreboard()
         setShowCalendar(false)
     }
 
+    const handleSelectSchedule = (day:string) => {
+        const latestMatch = schedulesMatches?.find(game => game.gameDate == day)
+        if(latestMatch){
+            setLatestMatches(latestMatch.games)
+        }
+        else setLatestMatches([])
+    }
+    
     return(
         <>
-            <div className={`bg-gray-400 p-8 z-20 flex fixed inset-x-0 justify-center border-2 transition-transform duration-500 ease-in-out ${showCalendarBar ? '-translate-y-16' : '-translate-y-44'}`} onMouseOver={()=>setShowCalendarBar(true)} onMouseOut={()=>setShowCalendarBar(false)}>
+            {/* <div className={`bg-gray-400 p-8 z-20 flex fixed inset-x-0 justify-center border-2 transition-transform duration-500 ease-in-out ${showCalendarBar ? '-translate-y-16' : '-translate-y-44'}`} onMouseOver={()=>setShowCalendarBar(true)} onMouseOut={()=>setShowCalendarBar(false)}>
                 <ShowCalendarButton calendarShow={handleShowCalendar}/>
             </div>
             <SlArrowDown className="absolute flex justify-center inset-x-1/2 animate-bounce mt-4 w-8 h-8" onMouseEnter={handleShowCalendarBar} onMouseOut={handleShowCalendarBar}/>
             <div className="flex flex-row w-full">
-                <div className="w-1/5 overflow-auto">
-                    <ScoreboardSummary schedulesGames={schedules} todayScoreboard={latestMatches} date={selectedDate} teamLogos={teamLogos} setGameId={handleShowBoxScore}/>
+                <div className="w-1/5 overflow-auto sm:w-1/4">
+                    <ScoreboardSummary todayScoreboard={latestMatches} teamLogos={teamLogos} setGameId={handleShowBoxScore}/>
                 </div>
                 {showCalendar &&
                 <div className="fixed inset-0 z-50 my-48 flex justify-center">
-                    <PopupCalendar setSelectedDate={setSelectedDate}/>
+                    <PopupCalendar setSelectedDate={handleSelectSchedule}/>
                 </div>
                 }
                 {selectedGameBoxScore && 
                 <div className="w-4/5 overflow-auto flex flex-row justify-center">
+                    <BoxScore boxscore={selectedGameBoxScore} teamLogos={teamLogos}/>
+                </div>
+                }
+            </div> */}
+            <div className={`bg-gray-400 p-8 z-20 flex fixed inset-x-0 justify-center border-2 transition-transform duration-500 ease-in-out ${showCalendarBar ? '-translate-y-16' : '-translate-y-44'}`} onMouseOver={()=>setShowCalendarBar(true)} onMouseOut={()=>setShowCalendarBar(false)}>
+                <ShowCalendarButton calendarShow={handleShowCalendar}/>
+            </div>
+            <SlArrowDown className="absolute flex justify-center inset-x-1/2 animate-bounce mt-4 w-8 h-8" onMouseEnter={handleShowCalendarBar} onMouseOut={handleShowCalendarBar}/>
+            <div className="flex flex-row size-full">
+                <div id="scoreboard" className="size-full z-10 overflow-auto">
+                    <ScoreboardSummary todayScoreboard={latestMatches} teamLogos={teamLogos} setGameId={handleShowBoxScore}/>
+                </div>
+                {showCalendar &&
+                <div className="fixed inset-0 z-50 my-48 flex justify-center">
+                    <PopupCalendar setSelectedDate={handleSelectSchedule}/>
+                </div>
+                }
+                {selectedGameBoxScore && 
+                <div className="bg-gray-200 absolute size-full z-30 overflow-auto flex flex-row justify-center">
                     <BoxScore boxscore={selectedGameBoxScore} teamLogos={teamLogos}/>
                 </div>
                 }

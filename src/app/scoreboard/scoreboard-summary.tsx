@@ -1,28 +1,19 @@
 import { FC } from "react";
 import Image from "next/image"
-import { subDays, format } from "date-fns";
-import schedules, { game, todayScoreboards, scoreboard } from "../../../interface-definition/scoreboard-interface";
+import { game, todayScoreboards, scoreboard } from "../../../interface-definition/scoreboard-interface";
 
 type ScoreboardSummaryProps = {
-    schedulesGames: schedules,
     todayScoreboard: todayScoreboards | game[],
-    date: string,
     teamLogos: Record<string, string>
     setGameId: (gameId: string) => void
 }
 
-const ScoreboardSummary: FC<ScoreboardSummaryProps> = ({schedulesGames, todayScoreboard, date, teamLogos, setGameId}) => {
-    
-    
-    const games = date == format(subDays(new Date(), 1), 'MM/dd/yyyy 00:00:00')
-                        ? todayScoreboard
-                        :schedulesGames.find((schedule)=> schedule.gameDate == date)?.games
-
+const ScoreboardSummary: FC<ScoreboardSummaryProps> = ({todayScoreboard, teamLogos, setGameId}) => {
 
     return(
         <>
         {
-            games?.map((game:game | scoreboard) => (
+            todayScoreboard?.map((game:game | scoreboard) => (
                 <div key={game.gameId} className="border-2 px-6 py-2" onClick={()=>setGameId(game.gameId)}>
                     <div className="flex flex-row justify-start px-2 py-2">
                         <span className="text-md">{game.gameLabel}&nbsp;</span>

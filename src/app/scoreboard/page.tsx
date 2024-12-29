@@ -1,23 +1,6 @@
 import Links from "../../../projectLinks/links";
 import BoxScoreMain from "./boxscore-main";
-import schedules from "../../../interface-definition/scoreboard-interface";
 import { todayScoreboards } from "../../../interface-definition/scoreboard-interface";
-
-async function getSchedule(): Promise<schedules> {
-
-    const res = await fetch('https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_32.json',{
-        headers:{
-            "referer": "https://www.nba.com/",
-        },
-        cache: "no-store",
-    })
-    if(!res.ok){
-        throw new Error('Failed to fetch schedule')
-    }
-    const data = await res.json()
-    const schedule = data.leagueSchedule.gameDates
-    return schedule
-}
 
 async function getTodayScoreboard(): Promise<todayScoreboards> {
 
@@ -25,6 +8,10 @@ async function getTodayScoreboard(): Promise<todayScoreboards> {
         headers:{
             "referer": "https://www.nba.com/",
         },
+        cache: "force-cache",
+        next:{
+            revalidate: 43200,
+        }
     })
     if(!res.ok){
         throw new Error('Failed to fetch today scoreboard')
@@ -34,16 +21,14 @@ async function getTodayScoreboard(): Promise<todayScoreboards> {
     return games
 }
 
-export const revalidate = 30
 
 export default async function Scoreboard(){
     
-    const schedules = await getSchedule()
     const todayScoreboards = await getTodayScoreboard()
     const teamLogos = Links.TEAM_LOGO as Record<string, string>
 
     return(
-        <BoxScoreMain schedules={schedules} todayScoreboard={todayScoreboards} teamLogos={teamLogos}/>
+        <BoxScoreMain todayScoreboard={todayScoreboards} teamLogos={teamLogos}/>
     )
 }
 

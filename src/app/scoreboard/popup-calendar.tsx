@@ -12,7 +12,6 @@ const PopupCalendar: React.FC<PopupCalendarProps> = ({ setSelectedDate }) => {
 
     const [selectedYear] = useState<string>(new Date().getFullYear().toString());
     const [selectedMonth] = useState<string>((new Date().getMonth()+1).toString());
-    // const [selectedDay, setSelectedDay] = useState<string>('');
 
     const generateCalendarDays = (year:number, month:number) => {
         const monthInterval = eachDayOfInterval({
