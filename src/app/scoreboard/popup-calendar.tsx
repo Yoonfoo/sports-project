@@ -51,50 +51,50 @@ const PopupCalendar: React.FC<PopupCalendarProps> = ({ setSelectedDate }) => {
     const fifthWeek = currentMonthInterval.slice(28, 35)
 
     return (
-        <div className="p-12 rounded-3xl shadow-2xl bg-gray-200">
+        <div className="w-96 h-96 rounded-3xl shadow-2xl bg-blue-200 flex flex-col justify-center">
             <div className="flex justify-center">
                 <input type='text' placeholder='ex: 2024-3-12' className='py-2 w-4/5 border-black border-2'></input>
             </div>
             <div className="flex flex-row justify-center">
-                <div className="p-4 w-16 h-16">SUN</div>
-                <div className="p-4 w-16 h-16">MON</div>
-                <div className="p-4 w-16 h-16">TUE</div>
-                <div className="p-4 w-16 h-16">WED</div>
-                <div className="p-4 w-16 h-16">THU</div>
-                <div className="p-4 w-16 h-16">FRI</div>
-                <div className="p-4 w-16 h-16">SAT</div>
+                <div className="p-4 w-12 h-12">SUN</div>
+                <div className="p-4 w-12 h-12">MON</div>
+                <div className="p-4 w-12 h-12">TUE</div>
+                <div className="p-4 w-12 h-12">WED</div>
+                <div className="p-4 w-12 h-12">THU</div>
+                <div className="p-4 w-12 h-12">FRI</div>
+                <div className="p-4 w-12 h-12">SAT</div>
             </div>
             <div className="flex flex-row justify-center">
                 {firstWeek.map((date, index) => (
-                    <button key={index} className="p-4 w-16 h-16 border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
+                    <button key={index} className="p-4 w-12 h-12 border-black border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
                         {date.getDate()}
                     </button>
                 ))}
             </div>
             <div className="flex flex-row justify-center">
                 {secondWeek.map((date, index) => (
-                    <button key={index} className="p-4 w-16 h-16 border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
+                    <button key={index} className="p-4 w-12 h-12 border-black border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
                         {date.getDate()}
                     </button>
                 ))}
             </div>
             <div className="flex flex-row justify-center">
                 {thirdWeek.map((date, index) => (
-                    <button key={index} className="p-4 w-16 h-16 border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
+                    <button key={index} className="p-4 w-12 h-12 border-black border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
                         {date.getDate()}
                     </button>
                 ))}
             </div>
             <div className="flex flex-row justify-center">
                 {fourthWeek.map((date, index) => (
-                    <button key={index} className="p-4 w-16 h-16 border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
+                    <button key={index} className="p-4 w-12 h-12 border-black border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
                         {date.getDate()}
                     </button>
                 ))}
             </div>
             <div className="flex flex-row justify-center">
                 {fifthWeek.map((date, index) => (
-                    <button key={index} className="p-4 w-16 h-16 border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
+                    <button key={index} className="p-4 w-12 h-12 border-black border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
                         {date.getDate()}
                     </button>
                 ))}
