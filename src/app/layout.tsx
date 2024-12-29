@@ -32,8 +32,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="bg-black flex items-center justify-between">
-            <Image src={logoPic} alt="logo" width={40} height={20} className="ml-4"/>
+        <div className="bg-black flex items-center justify-between h-12">
+            <Image src={logoPic} alt="logo" width={40} height={40} className="ml-4"/>
             <DropDown/>
         </div>
         <div id="dropDownMenu" className="absolute flex flex-col items-center justify-center w-full bg-gray-200 z-30 hidden">
