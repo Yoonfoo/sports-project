@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { FC, useState, useEffect, useMemo } from 'react'
+import { FC, useState, useEffect } from 'react'
 import boxscoreGame, { team } from '../../../interface-definition/boxscore-interface'
 
 type BoxScoreProps = {
@@ -13,7 +13,6 @@ const BoxScore: FC<BoxScoreProps> = ({boxscore ,teamLogos}) => {
     
     const [selectTeamBoxScore, setSelectTeamBoxScore] = useState<team>(boxscore.homeTeam)
 
-    useMemo(() => {}, [boxscore])
     useEffect(() => {
         setSelectTeamBoxScore(boxscore.homeTeam)
     }, [boxscore])
