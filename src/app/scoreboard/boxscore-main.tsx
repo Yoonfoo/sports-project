@@ -57,7 +57,7 @@ async function fetchSchedule(): Promise<schedules> {
 export default function BoxScoreMain({todayScoreboard, teamLogos}: BoxScoreMainProps) {
 
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
-    const [showCalendarBar, setShowCalendarBar] = useState<boolean>(false);
+    // const [showCalendarBar, setShowCalendarBar] = useState<boolean>(false);
 
     const [selectedGameBoxScore, setSelectedGameBoxScore] = useState<boxscoreGame>()
     const [latestMatches, setLatestMatches] = useState<todayScoreboards | game[]>(todayScoreboard)
