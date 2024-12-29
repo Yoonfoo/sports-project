@@ -123,7 +123,7 @@ export default function BoxScoreMain({todayScoreboard, teamLogos}: BoxScoreMainP
             <div className={`bg-gray-400 p-8 z-20 flex fixed inset-x-0 justify-center border-2 transition-transform duration-500 ease-in-out ${showCalendarBar ? '-translate-y-16' : '-translate-y-44'}`} onMouseOver={()=>setShowCalendarBar(true)} onMouseOut={()=>setShowCalendarBar(false)}>
                 <ShowCalendarButton calendarShow={handleShowCalendar}/>
             </div>
-            <SlArrowDown className="absolute flex justify-center inset-x-1/2 animate-bounce mt-4 w-8 h-8" onMouseEnter={handleShowCalendarBar} onMouseOut={handleShowCalendarBar}/>
+            <SlArrowDown className="absolute flex justify-center inset-x-1/2 animate-bounce mt-4 w-8 h-8" onClick={handleShowCalendarBar}/>
             <div className="flex flex-row size-full">
                 <div id="scoreboard" className="size-full z-10 overflow-auto">
                     <ScoreboardSummary todayScoreboard={latestMatches} teamLogos={teamLogos} setGameId={handleShowBoxScore}/>
@@ -134,7 +134,7 @@ export default function BoxScoreMain({todayScoreboard, teamLogos}: BoxScoreMainP
                 </div>
                 }
                 {selectedGameBoxScore && 
-                <div className="bg-gray-200 absolute size-full z-30 overflow-auto flex flex-row justify-center">
+                <div className="bg-gray-200 absolute size-full z-20 overflow-auto flex flex-row justify-center">
                     <BoxScore boxscore={selectedGameBoxScore} teamLogos={teamLogos}/>
                 </div>
                 }
