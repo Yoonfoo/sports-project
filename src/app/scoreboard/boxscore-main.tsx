@@ -98,7 +98,8 @@ export default function BoxScoreMain({todayScoreboard, teamLogos}: BoxScoreMainP
 
     const handleSelectSchedule = (day:string) => {
         setSelectedGameBoxScore(undefined)
-        checkShowScoreboard() && handleShowScoreboard()
+        const temp = checkShowScoreboard()
+        if(temp) handleShowScoreboard()
         const latestMatch = schedulesMatches?.find(game => game.gameDate == day)
         if(latestMatch){
             setLatestMatches(latestMatch.games)
@@ -127,7 +128,7 @@ export default function BoxScoreMain({todayScoreboard, teamLogos}: BoxScoreMainP
                 </div>
                 }
             </div> */}
-            <div className="flex justify-center items-center" onMouseOver={()=>setShowCalendarBar(true)} onMouseOut={()=>setShowCalendarBar(false)}>
+            <div className="flex justify-center items-center">
                 <ShowCalendarButton calendarShow={handleShowCalendar}/>
             </div>
             <div className="flex flex-row size-full">
