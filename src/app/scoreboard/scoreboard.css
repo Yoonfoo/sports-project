@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .sm-show-calendar-container {
+    @apply fixed inset-x-44 z-40 -translate-y-6;
+  }
+
+  .sm-scoreboard-container {
+    @apply z-10 overflow-auto;
+  }
+
+  .sm-scoreboard-container-flex {
+    @apply flex size-full h-20 z-10 overflow-auto;
+  }
+
+  .sm-popup-calendar-container {
+    @apply fixed inset-0 z-50 my-48 flex justify-center;
+  }
+
+  .sm-boxscore-container {
+    @apply bg-gray-200 absolute size-full z-20 overflow-auto flex flex-row justify-center;
+  }
+
+}
