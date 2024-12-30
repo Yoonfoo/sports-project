@@ -7,6 +7,7 @@ import BoxScore from './boxscore';
 import ScoreboardSummary from './scoreboard-summary';
 import PopupCalendar from './popup-calendar';
 import ShowCalendarButton from './show-calendar-button';
+import "./scoreboard.css"
 // import { SlArrowDown } from 'react-icons/sl'
 
 interface BoxScoreMainProps {
@@ -80,26 +81,26 @@ export default function BoxScoreMain({todayScoreboard, teamLogos}: BoxScoreMainP
     //     setShowCalendarBar(prev => !prev)
     // }
 
-    const checkShowScoreboard = ():boolean => {
-        const scoreboard = document.getElementById("scoreboard")
-        return scoreboard?.classList.contains("hidden") || !scoreboard
-    }
+    // const checkShowScoreboard = ():boolean => {
+    //     const scoreboard = document.getElementById("scoreboard")
+    //     return scoreboard?.classList.contains("hidden") || !scoreboard
+    // }
 
-    const handleShowScoreboard = () => {
-        const scoreboard = document.getElementById("scoreboard")
-        scoreboard?.classList.toggle("hidden")
-    }
+    // const handleShowScoreboard = () => {
+    //     const scoreboard = document.getElementById("scoreboard")
+    //     scoreboard?.classList.toggle("hidden")
+    // }
 
     const handleShowBoxScore = async(gameId: string) => {
         setSelectedGameBoxScore(await fetchGame(gameId))
-        handleShowScoreboard()
+        // handleShowScoreboard()
         setShowCalendar(false)
     }
 
     const handleSelectSchedule = (day:string) => {
         setSelectedGameBoxScore(undefined)
-        const temp = checkShowScoreboard()
-        if(temp) handleShowScoreboard()
+        // const temp = checkShowScoreboard()
+        // if(temp) handleShowScoreboard()
         const latestMatch = schedulesMatches?.find(game => game.gameDate == day)
         if(latestMatch){
             setLatestMatches(latestMatch.games)
@@ -128,24 +129,29 @@ export default function BoxScoreMain({todayScoreboard, teamLogos}: BoxScoreMainP
                 </div>
                 }
             </div> */}
-            <div className="flex justify-center items-center">
+            <div className="sm-show-calendar-container">
                 <ShowCalendarButton calendarShow={handleShowCalendar}/>
             </div>
-            <div className="flex flex-row size-full">
-                <div id="scoreboard" className="size-full z-10 overflow-auto">
-                    <ScoreboardSummary todayScoreboard={latestMatches} teamLogos={teamLogos} setGameId={handleShowBoxScore}/>
-                </div>
-                {showCalendar &&
-                <div className="fixed inset-0 z-50 my-48 flex justify-center">
-                    <PopupCalendar setSelectedDate={handleSelectSchedule}/>
-                </div>
-                }
-                {selectedGameBoxScore && 
-                <div className="bg-gray-200 absolute size-full z-20 overflow-auto flex flex-row justify-center">
-                    <BoxScore boxscore={selectedGameBoxScore} teamLogos={teamLogos}/>
-                </div>
-                }
+            {selectedGameBoxScore
+            ?
+            <div id="scoreboard" className="sm-scoreboard-container-flex">
+                <ScoreboardSummary todayScoreboard={latestMatches} teamLogos={teamLogos} setGameId={handleShowBoxScore} main={false}/>
             </div>
+            :
+            <div id="scoreboard" className="sm-scoreboard-container">
+                <ScoreboardSummary todayScoreboard={latestMatches} teamLogos={teamLogos} setGameId={handleShowBoxScore} main={true}/>
+            </div>
+            }
+            {showCalendar &&
+            <div className="sm-popup-calendar-container">
+                <PopupCalendar setSelectedDate={handleSelectSchedule}/>
+            </div>
+            }
+            {selectedGameBoxScore && 
+            <div className="sm-boxscore-container">
+                <BoxScore boxscore={selectedGameBoxScore} teamLogos={teamLogos}/>
+            </div>
+            }
         </>
     )
 }
