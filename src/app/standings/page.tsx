@@ -9,7 +9,8 @@ async function getStandings(): Promise<teamStandings> {
         cache: "force-cache"
     })
     if(!res.ok) {
-        console.log(process.env.NODE_ENV)
+        console.log(apiUrl)
+        console.log(process.env.NEXT_PUBLIC_API_URL)
         throw new Error('Failed to fetch standings')
     }
     const standings = await res.json()
