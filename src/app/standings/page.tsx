@@ -6,10 +6,10 @@ async function getStandings(): Promise<teamStandings> {
     ?'http://localhost:3000/api/nba/standings'
     :`${process.env.NEXT_PUBLIC_API_URL}/api/nba/standings`
     const res = await fetch(apiUrl, {
-        cache: "force-cache",
+        cache: "force-cache"
     })
     if(!res.ok) {
-        console.log(res.status)
+        console.log(process.env.NODE_ENV)
         throw new Error('Failed to fetch standings')
     }
     const standings = await res.json()
