@@ -2,19 +2,15 @@ import { teamStandings } from '../../../interface-definition/standings-type'
 import StandingMain from './standing-main';
 
 async function getStandings(): Promise<teamStandings> {
-    const res = await fetch('https://stats.nba.com/stats/leaguestandingsv3?GroupBy=conf&LeagueID=00&Season=2024-25&SeasonType=Regular Season&Section=overall', {
-      headers: {
-        'host': 'stats.nba.com',
-        'referer': 'https://www.nba.com/',
-      },
-    })
+    const res = process.env.NODE_ENV === 'development'
+    ?await fetch('http://localhost:3000/api/nba/standings')
+    :await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/standings`)
     if(!res.ok) {
         console.log(res.status)
         throw new Error('Failed to fetch standings')
     }
-    const data = await res.json()
-    console.log(data)
-    const standings = data.resultSets[0].rowSet
+    const standings = await res.json()
+    // const standings = data.resultSets[0].rowSet
     return standings
 }  
 
