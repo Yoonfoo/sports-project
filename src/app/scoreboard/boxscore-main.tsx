@@ -1,77 +1,34 @@
 'use client'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { todayScoreboards } from '../../../interface-definition/scoreboard-interface';
-import schedules, { game } from '../../../interface-definition/scoreboard-interface';
-import boxscoreGame from '../../../interface-definition/boxscore-interface';
+import { game, schedule } from '../../../interface-definition/scoreboard-interface';
+import { boxscoreGame } from '../../../interface-definition/boxscore-interface';
 import BoxScore from './boxscore';
 import ScoreboardSummary from './scoreboard-summary';
 import PopupCalendar from './popup-calendar';
 import ShowCalendarButton from './show-calendar-button';
 import "./scoreboard.css"
-// import { SlArrowDown } from 'react-icons/sl'
+
 
 interface BoxScoreMainProps {
     todayScoreboard: todayScoreboards,
-    teamLogos: Record<string, string>
+    teamLogos: Record<string, string>,
+    schedules: schedule[]
 }
 
-async function fetchGame(selectedGameID: string): Promise<boxscoreGame> {
-    const res = process.env.NODE_ENV === 'development'
-    ? await fetch(`http://localhost:3000/api/nba/boxscore?gameID=${selectedGameID}`,{
-        headers:{
-            "referer": "http://www.nba.com/",
-        },
-        cache: "force-cache",
-    })
-    : await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/boxscore?gameID=${selectedGameID}`, {
-        headers:{
-            "referer": "http://www.nba.com/",
-        },
-        cache: "force-cache",
-    })
-    if(!res.ok){
-        throw new Error('Failed to fetch boxscore')
-    }
-    return await res.json()
-}
-
-async function fetchSchedule(): Promise<schedules> {
-    const res = process.env.NODE_ENV === 'development'
-    ? await fetch('http://localhost:3000/api/nba/schedule',{
-        headers:{
-            "referer": "http://www.nba.com/",
-        },
-        cache: "force-cache",
-    })
-    : await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/schedule`, {
-        headers:{
-            "referer": "http://www.nba.com/",
-        },
-        cache: "force-cache",
-    })
-    if(!res.ok){
-        throw new Error('Failed to fetch schedule')
-    }
-    return await res.json()
-}
-
-export default function BoxScoreMain({todayScoreboard, teamLogos}: BoxScoreMainProps) {
+export default function BoxScoreMain({todayScoreboard, teamLogos, schedules}: BoxScoreMainProps) {
 
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
-    // const [showCalendarBar, setShowCalendarBar] = useState<boolean>(false);
-
     const [selectedGameBoxScore, setSelectedGameBoxScore] = useState<boxscoreGame>()
     const [latestMatches, setLatestMatches] = useState<todayScoreboards | game[]>(todayScoreboard)
-    const [schedulesMatches, setSchedulesMatches] = useState<schedules>()
 
-    useEffect(() => {
-    const fetchScheduleData = async () => {
-        const schedule = await fetchSchedule()
-        setSchedulesMatches(schedule);
-    } 
-    fetchScheduleData();
-        
-    }, []);
+    const fetchGame = async(gameID:string) => {
+        const res = process.env.NODE_ENV === 'development' 
+        ? await fetch(`http://localhost:3000/api/nba/todayScoreboard?gameID=${gameID}`) 
+        : await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/todayScoreboard?gameID=${gameID}`)
+        const data = await res.json()
+        return data
+    }
 
     const handleShowCalendar = () => {
         setShowCalendar(prev => !prev)
@@ -99,9 +56,8 @@ export default function BoxScoreMain({todayScoreboard, teamLogos}: BoxScoreMainP
 
     const handleSelectSchedule = (day:string) => {
         setSelectedGameBoxScore(undefined)
-        // const temp = checkShowScoreboard()
-        // if(temp) handleShowScoreboard()
-        const latestMatch = schedulesMatches?.find(game => game.gameDate == day)
+        const latestMatch = schedules?.find(game => game.gameDate == day)
+        console.log(latestMatch)
         if(latestMatch){
             setLatestMatches(latestMatch.games)
         }

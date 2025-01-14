@@ -149,7 +149,4 @@ type schedule = {
     games: game[],
 }
 
-type schedules = Array<schedule>
-
 export type { game, schedule }
-export default schedules

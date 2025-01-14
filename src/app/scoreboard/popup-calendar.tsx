@@ -39,7 +39,8 @@ const PopupCalendar: React.FC<PopupCalendarProps> = ({ setSelectedDate }) => {
     }
 
     const handleDateSelect = (day: string) => {
-        const date = `${selectedMonth}/${day.padStart(2,'0')}/${selectedYear} 00:00:00`;
+        const date = `${selectedMonth.padStart(2,'0')}/${day.padStart(2,'0')}/${selectedYear} 00:00:00`;
+        console.log(date)
         setSelectedDate(date)
     }
 

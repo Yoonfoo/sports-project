@@ -173,5 +173,4 @@ type boxscoreGame = {
     awayTeam: team,
 }
 
-export type { team }
-export default boxscoreGame
+export type { team, boxscoreGame }
