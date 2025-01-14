@@ -1,3 +1,4 @@
+'use client'
 import { teamStandings } from '../../../interface-definition/standings-type'
 import Links from "../../../projectLinks/links";
 import Image from 'next/image'
