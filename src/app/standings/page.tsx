@@ -26,10 +26,19 @@ export default async function Standings() {
         // :`${process.env.NEXT_PUBLIC_API_URL}/api/nba/standings`
         const res = await fetch('https://stats.nba.com/stats/leaguestandingsv3?GroupBy=conf&LeagueID=00&Season=2024-25&SeasonType=Regular%20Season&Section=overall', {
             headers: {
-                // 'host': 'stats.nba.com',
-                'referer': 'https://www.nba.com/',
+                'Accept': '*/*',
+                'Accept-Encoding': 'gzip, deflate, br, zstd',
+                'Accept-Language': 'en-US,en;q=0.5',
+                'Connection': 'keep-alive',
+                'Host': 'stats.nba.com',
+                'Priority': 'u=4',
+                'Referer': 'https://www.nba.com/',
+                'Sec-Fetch-Dest': 'empty',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Site': 'same-site',
+                'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0',
             },
-            cache: "force-cache"
+            // cache: "force-cache"
         })
         if(!res.ok) {
             console.log(res.status)
