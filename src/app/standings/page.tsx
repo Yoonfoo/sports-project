@@ -25,6 +25,7 @@ export default async function Standings() {
         // ?'http://localhost:3000/api/nba/standings'
         // :`${process.env.NEXT_PUBLIC_API_URL}/api/nba/standings`
         const res = await fetch('https://stats.nba.com/stats/leaguestandingsv3?GroupBy=conf&LeagueID=00&Season=2024-25&SeasonType=Regular%20Season&Section=overall', {
+            credentials: 'include',
             headers: {
                 'Accept': '*/*',
                 'Accept-Encoding': 'gzip, deflate, br, zstd',
