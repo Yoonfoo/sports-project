@@ -5,10 +5,7 @@ import { useEffect, useState } from 'react';
 interface tableHeaders {
     player: string,
     team: string,
-    age: string,
     gp: string,
-    w: string,
-    l: string,
     min: string,
     pts: string
     fgm: string,
@@ -27,20 +24,13 @@ interface tableHeaders {
     tov: string,
     stl: string,
     blk: string,
-    pf: string,
-    fp: string,
-    dd2: string,
-    td3: string,
-    plusMinus: string
+    eff: string,
 }
 
 const playerStatsHeader: tableHeaders = {
     player: "PLAYER",
     team: "TEAM",
-    age: "AGE",
     gp: "GP",
-    w: "W",
-    l: "L",
     min: "MIN",
     pts: "PTS",
     fgm: "FGM",
@@ -56,14 +46,10 @@ const playerStatsHeader: tableHeaders = {
     dreb: "DREB",
     reb: "REB",
     ast: "AST",
-    tov: "TO",
     stl: "STL",
     blk: "BLK",
-    pf: "PF",
-    fp: "FP",   
-    dd2: "DD2",
-    td3: "TD3",
-    plusMinus: "+/-" 
+    tov: "TOV",
+    eff: "EFF",
 }
 
 export default function PlayerStatsTable () {
@@ -71,57 +57,53 @@ export default function PlayerStatsTable () {
 
     useEffect(() => {
         const fetchPlayerStats = async () => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/league-dash-player-stats`);
+            // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/league-dash-player-stats`);
+            const res = await fetch("https://stats.nba.com/stats/leagueLeaders?LeagueID=00&PerMode=PerGame&Scope=S&Season=2024-25&SeasonType=Regular Season&StatCategory=PTS")
             const data = await res.json();
-            setPlayerData(data);
+            const playerStats = data.resultSet.rowSet;
+            console.log(playerStats);
+            setPlayerData(playerStats);
         };
         fetchPlayerStats();
     }, []);
 
     return (
-        <div>
-            <table>
+        <div className="overflow-scroll border-2 rounded-2xl max-h-[calc(100vh-7rem)] m-8">
+            <table className="table-auto min-w-max">
                 <thead>
                     <tr>
                     {Object.values(playerStatsHeader).map((header: string) => (
                         header == "PLAYER"
-                        ? <th key={header} className="px-12 py-1 border-2 border-black">{header}</th>
-                        : <th key={header} className="px-8 border-2 border-black">{header}</th>
+                        ? <th key={header} className="h-12 border-b-2 border-black text-center bg-slate-300 sticky left-0 top-0 z-10">{header}</th>
+                        : <th key={header} className="h-12 border-black border-b-2 text-center sticky top-0 bg-slate-300">{header}</th>
                     ))}
                     </tr>    
                 </thead>
                 <tbody>
                 {playerData.map((player) => (
-                    <tr key={player[0]}>
-                        <td className="pl-4 py-1 border-r-2">{player[1]}</td>
-                        <td className="pl-4 py-1">{player[4]}</td>
-                        <td className="pl-4 py-1">{player[5]}</td>
-                        <td className="pl-4 py-1">{player[6]}</td>
-                        <td className="pl-4 py-1">{player[7]}</td>
-                        <td className="pl-4 py-1">{player[8]}</td>
-                        <td className="pl-4 py-1">{player[10]}</td>
-                        <td className="pl-4 py-1">{player[30]}</td>
-                        <td className="pl-4 py-1">{player[11]}</td>
-                        <td className="pl-4 py-1">{player[12]}</td>
-                        <td className="pl-4 py-1">{player[13]}</td>
-                        <td className="pl-4 py-1">{player[14]}</td>
-                        <td className="pl-4 py-1">{player[15]}</td>
-                        <td className="pl-4 py-1">{player[16]}</td>
-                        <td className="pl-4 py-1">{player[17]}</td>
-                        <td className="pl-4 py-1">{player[18]}</td>
-                        <td className="pl-4 py-1">{player[19]}</td>
-                        <td className="pl-4 py-1">{player[20]}</td>
-                        <td className="pl-4 py-1">{player[21]}</td>
-                        <td className="pl-4 py-1">{player[22]}</td>
-                        <td className="pl-4 py-1">{player[23]}</td>
-                        <td className="pl-4 py-1">{player[24]}</td>
-                        <td className="pl-4 py-1">{player[25]}</td>
-                        <td className="pl-4 py-1">{player[26]}</td>
-                        <td className="pl-4 py-1">{player[28]}</td>
-                        <td className="pl-4 py-1">{player[32]}</td>
-                        <td className="pl-4 py-1">{player[33]}</td>
-                        <td className="pl-4 py-1">{player[34]}</td>
-                        <td className="pl-4 py-1">{player[31]}</td>
+                    <tr key={player[0]} className="border-b-2">
+                        <td className="pl-4 sticky left-0 bg-slate-200">{player[1]} {player[2]}</td>
+                        <td className="w-20 h-12 text-center">{player[4]}</td>
+                        <td className="w-20 h-12 text-center">{player[5]}</td>
+                        <td className="w-20 h-12 text-center">{player[6]}</td>
+                        <td className="w-20 h-12 text-center">{player[23]}</td>
+                        <td className="w-20 h-12 text-center">{player[7]}</td>
+                        <td className="w-20 h-12 text-center">{player[8]}</td>
+                        <td className="w-20 h-12 text-center">{player[9]}</td>
+                        <td className="w-20 h-12 text-center">{player[10]}</td>
+                        <td className="w-20 h-12 text-center">{player[11]}</td>
+                        <td className="w-20 h-12 text-center">{player[12]}</td>
+                        <td className="w-20 h-12 text-center">{player[13]}</td>
+                        <td className="w-20 h-12 text-center">{player[14]}</td>
+                        <td className="w-20 h-12 text-center">{player[15]}</td>
+                        <td className="w-20 h-12 text-center">{player[16]}</td>
+                        <td className="w-20 h-12 text-center">{player[17]}</td>
+                        <td className="w-20 h-12 text-center">{player[18]}</td>
+                        <td className="w-20 h-12 text-center">{player[19]}</td>
+                        <td className="w-20 h-12 text-center">{player[20]}</td>
+                        <td className="w-20 h-12 text-center">{player[21]}</td>
+                        <td className="w-20 h-12 text-center">{player[22]}</td>
+                        <td className="w-20 h-12 text-center">{player[24]}</td>
                     </tr>
                 ))}
                 </tbody>      
