@@ -18,7 +18,7 @@
 // //     return standings
 // // }  
 
-// export default async function Standings() {
+export default async function Standings() {
 
 //     const fetchStandings = async() => {
 //         // const apiUrl = process.env.NODE_ENV === 'development'
@@ -40,10 +40,8 @@
 
 //     const standing = await fetchStandings()
 
-//     return (
-//         <div>
-//             {/* <StandingMain/>  */}
-//             <StandingMain standings={standing}/>
-//         </div>
-//     );
-// }
+    return (
+        <div>
+        </div>
+     );
+ }
