@@ -122,7 +122,10 @@ const BoxScore: FC<BoxScoreProps> = ({boxscore ,teamLogos}) => {
         //     </div>
 
         // </div>
-        <div className="size-full">
+
+        ///////////////////////////
+    <div className="overflow-auto">
+        <div className="border-2 rounded-lg m-1">
 
             <div className="my-4">
                 <div className="flex justify-between mx-4 mb-4">
@@ -142,87 +145,86 @@ const BoxScore: FC<BoxScoreProps> = ({boxscore ,teamLogos}) => {
                 </div>
             </div>
 
-            <div className="flex flex-col py-4 border-b-2 border-gray-300">
-                <div className="flex flex-row justify-between mx-4">
-                    <div className="">TEAM</div>
+            <div className="flex flex-col py-4 border-b-2 border-gray-300 text-sm">
+                <div className="flex flex-row justify-between mx-4 mb-4">
+                    <div className="w-12">TEAM</div>
                     <div className="flex flex-row">
-                        <div className="w-12">Q1</div>
-                        <div className="w-12">Q2</div>
-                        <div className="w-12">Q3</div>
-                        <div className="w-12">Q4</div>
-                        {boxscore.period > 4 && <div className="w-12">OT</div>}
+                        <div className="w-7">Q1</div>
+                        <div className="w-7">Q2</div>
+                        <div className="w-7">Q3</div>
+                        <div className="w-7">Q4</div>
+                        {boxscore.period > 4 && <div className="w-7">OT</div>}
                     </div>
                 </div>
                 <div className="flex flex-row justify-between mx-4">
                     <div className="">{boxscore.homeTeam.teamCity} {boxscore.homeTeam.teamName}</div>
                     <div className="flex flex-row">
-                        <div className="w-12">{boxscore.homeTeam.periods[0].score}</div>
-                        <div className="w-12">{boxscore.homeTeam.periods[1].score}</div>
-                        <div className="w-12">{boxscore.homeTeam.periods[2].score}</div>
-                        <div className="w-12">{boxscore.homeTeam.periods[3].score}</div>
-                        {boxscore.period > 4 && <div className="w-12">{boxscore.homeTeam.periods[4].score}</div>}
+                        <div className="w-7">{boxscore.homeTeam.periods[0].score}</div>
+                        <div className="w-7">{boxscore.homeTeam.periods[1].score}</div>
+                        <div className="w-7">{boxscore.homeTeam.periods[2].score}</div>
+                        <div className="w-7">{boxscore.homeTeam.periods[3].score}</div>
+                        {boxscore.period > 4 && <div className="w-7">{boxscore.homeTeam.periods[4].score}</div>}
                     </div>
                 </div>
                 <div className="flex flex-row justify-between mx-4">
                     <div className="">{boxscore.awayTeam.teamCity} {boxscore.awayTeam.teamName}</div>
                     <div className="flex flex-row">
-                        <div className="w-12">{boxscore.awayTeam.periods[0].score}</div>
-                        <div className="w-12">{boxscore.awayTeam.periods[1].score}</div>
-                        <div className="w-12">{boxscore.awayTeam.periods[2].score}</div>
-                        <div className="w-12">{boxscore.awayTeam.periods[3].score}</div>
-                        {boxscore.period > 4 && <div className="w-12">{boxscore.awayTeam.periods[4].score}</div>}
+                        <div className="w-7">{boxscore.awayTeam.periods[0].score}</div>
+                        <div className="w-7">{boxscore.awayTeam.periods[1].score}</div>
+                        <div className="w-7">{boxscore.awayTeam.periods[2].score}</div>
+                        <div className="w-7">{boxscore.awayTeam.periods[3].score}</div>
+                        {boxscore.period > 4 && <div className="w-7">{boxscore.awayTeam.periods[4].score}</div>}
                     </div>
                 </div>
             </div>
 
             <div className="m-4">
-                <span className="">Venue: {boxscore.arena.arenaName + ", " + boxscore.arena.arenaCity}</span>
+                <span className="text-sm">Venue: {boxscore.arena.arenaName + ", " + boxscore.arena.arenaCity}</span>
             </div>
+        </div>
 
-            <div className="flex flex-row border-collapse w-full">
-                <button className="w-1/2 border-2 border-black border-r-0 p-2" onClick={()=>setSelectTeamBoxScore(boxscore.homeTeam)}>{boxscore.homeTeam.teamCity}&nbsp;{boxscore.homeTeam.teamName}</button>
-                <button className="w-1/2 border-2 border-black" onClick={()=>setSelectTeamBoxScore(boxscore.awayTeam)}>{boxscore.awayTeam.teamCity}&nbsp;{boxscore.awayTeam.teamName}</button>
+            <div className="flex flex-row border-collapse text-sm m-2">
+                <button className="w-1/2 p-4 bg-slate-100 focus:bg-gray-300" onClick={()=>setSelectTeamBoxScore(boxscore.homeTeam)}>{boxscore.homeTeam.teamCity}&nbsp;{boxscore.homeTeam.teamName}</button>
+                <button className="w-1/2 bg-slate-100 focus:bg-gray-300" onClick={()=>setSelectTeamBoxScore(boxscore.awayTeam)}>{boxscore.awayTeam.teamCity}&nbsp;{boxscore.awayTeam.teamName}</button>
             </div>
+        <div className="m-2 rounded-lg border-2">    
 
-            <div className="flex h-full overflow-auto">
-                <table className="border-collapse">
-                    <thead className="sticky top-0 bg-gray-300">
-                        <tr className="">
-                            <th className="flex flex-start px-4 py-2 border-r-2 border-black sticky left-0">Players</th>
-                            <th className="px-4 py-2">MIN</th>
-                            <th className="px-4 py-2">PTS</th>
-                            <th className="px-4 py-2">FGM</th>
-                            <th className="px-4 py-2">FGA</th>
-                            <th className="px-4 py-2">AST</th>
-                            <th className="px-4 py-2">OREB</th>
-                            <th className="px-4 py-2">DREB</th>
-                            <th className="px-4 py-2">REB</th>
-                            <th className="px-4 py-2">BLK</th>
-                            <th className="px-4 py-2">FTM</th>
-                            <th className="px-4 py-2">FTA</th>
+            <div className="overflow-scroll text-sm">
+                <table className="table-auto min-w-max">
+                    <thead className="bg-gray-200">
+                        <tr>
+                            <th className="py-2 bg-gray-300 sticky left-0">Players</th>
+                            <th className="w-16">MIN</th>
+                            <th className="w-16">PTS</th>
+                            <th className="w-16">FGM</th>
+                            <th className="w-16">FGA</th>
+                            <th className="w-16">AST</th>
+                            <th className="w-16">OREB</th>
+                            <th className="w-16">DREB</th>
+                            <th className="w-16">REB</th>
+                            <th className="w-16">BLK</th>
+                            <th className="w-16">FTM</th>
+                            <th className="w-16">FTA</th>
                         </tr>
                     </thead>
                     <tbody>
                         {selectTeamBoxScore.players.map((player) => (
                             <tr key={player.personId}>
-                                <td className="flex px-4 py-2 justify-between border-r-2 border-black sticky left-0">
+                                <td className="px-2 py-2 bg-slate-100 z-10 sticky left-0">
                                     {player.name}
-                                    <div>
-
-                                    <span className="px-4 font-bold">{player.position}</span>    
-                                    </div>
+                                    <span className="px-4 font-bold text-right">{player.position}</span>    
                                 </td>
-                                <td className="px-4 py-2">{player.statistics.minutes.substring(2,4) + ":" + player.statistics.minutes.substring(5,7)}</td>
-                                <td className="px-4 py-2">{player.statistics.points}</td>
-                                <td className="px-4 py-2">{player.statistics.fieldGoalsMade}</td>
-                                <td className="px-4 py-2">{player.statistics.fieldGoalsAttempted}</td>
-                                <td className="px-4 py-2">{player.statistics.assists}</td>
-                                <td className="px-4 py-2">{player.statistics.reboundsOffensive}</td>
-                                <td className="px-4 py-2">{player.statistics.reboundsDefensive}</td>
-                                <td className="px-4 py-2">{player.statistics.reboundsTotal}</td>
-                                <td className="px-4 py-2">{player.statistics.blocks}</td>
-                                <td className="px-4 py-2">{player.statistics.freeThrowsMade}</td>
-                                <td className="px-4 py-2">{player.statistics.freeThrowsAttempted}</td>
+                                <td className="w-16 text-center">{player.statistics.minutes.substring(2,4) + ":" + player.statistics.minutes.substring(5,7)}</td>
+                                <td className="w-16 text-center">{player.statistics.points}</td>
+                                <td className="w-16 text-center">{player.statistics.fieldGoalsMade}</td>
+                                <td className="w-16 text-center">{player.statistics.fieldGoalsAttempted}</td>
+                                <td className="w-16 text-center">{player.statistics.assists}</td>
+                                <td className="w-16 text-center">{player.statistics.reboundsOffensive}</td>
+                                <td className="w-16 text-center">{player.statistics.reboundsDefensive}</td>
+                                <td className="w-16 text-center">{player.statistics.reboundsTotal}</td>
+                                <td className="w-16 text-center">{player.statistics.blocks}</td>
+                                <td className="w-16 text-center">{player.statistics.freeThrowsMade}</td>
+                                <td className="w-16 text-center">{player.statistics.freeThrowsAttempted}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -230,6 +232,8 @@ const BoxScore: FC<BoxScoreProps> = ({boxscore ,teamLogos}) => {
             </div>
 
         </div>
+    </div>
+  
     )
 }
 

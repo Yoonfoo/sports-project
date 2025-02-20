@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { todayScoreboards } from '../../../interface-definition/scoreboard-interface';
 import { game, schedule } from '../../../interface-definition/scoreboard-interface';
 import { boxscoreGame } from '../../../interface-definition/boxscore-interface';
@@ -30,6 +30,10 @@ export default function BoxScoreMain({todayScoreboard, teamLogos, schedules}: Bo
         return data
     }
 
+    useEffect(()=>{
+        console.log("Scoreboard rerendered")
+    }, [todayScoreboard])
+
     const handleShowCalendar = () => {
         setShowCalendar(prev => !prev)
     }
@@ -51,12 +55,12 @@ export default function BoxScoreMain({todayScoreboard, teamLogos, schedules}: Bo
     const handleShowBoxScore = async(gameId: string) => {
         setSelectedGameBoxScore(await fetchGame(gameId))
         // handleShowScoreboard()
-        setShowCalendar(false)
     }
-
+    
     const handleSelectSchedule = (day:string) => {
         setSelectedGameBoxScore(undefined)
         const latestMatch = schedules?.find(game => game.gameDate == day)
+        setShowCalendar(false)
         console.log(latestMatch)
         if(latestMatch){
             setLatestMatches(latestMatch.games)
@@ -65,7 +69,7 @@ export default function BoxScoreMain({todayScoreboard, teamLogos, schedules}: Bo
     }
     
     return(
-        <>
+        <div className="">
             {/* <div className={`bg-gray-400 p-8 z-20 flex fixed inset-x-0 justify-center border-2 transition-transform duration-500 ease-in-out ${showCalendarBar ? '-translate-y-16' : '-translate-y-44'}`} onMouseOver={()=>setShowCalendarBar(true)} onMouseOut={()=>setShowCalendarBar(false)}>
                 <ShowCalendarButton calendarShow={handleShowCalendar}/>
             </div>
@@ -104,10 +108,8 @@ export default function BoxScoreMain({todayScoreboard, teamLogos, schedules}: Bo
             </div>
             }
             {selectedGameBoxScore && 
-            <div className="sm-boxscore-container">
-                <BoxScore boxscore={selectedGameBoxScore} teamLogos={teamLogos}/>
-            </div>
+            <BoxScore boxscore={selectedGameBoxScore} teamLogos={teamLogos}/>
             }
-        </>
+        </div>
     )
 }

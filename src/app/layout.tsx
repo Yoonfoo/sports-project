@@ -32,6 +32,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div className="max-h-screen">
+
         <div className="bg-black flex items-center justify-between h-12">
             <Image src={logoPic} alt="logo" width={40} height={40} className="ml-4"/>
             <DropDown/>
@@ -44,6 +46,7 @@ export default function RootLayout({
             <Link href="/standings" className="text-md font-sans p-4 border-b-2 border-black w-full text-center">Standings</Link>
         </div>
         {children}
+        </div>
       </body>
     </html>
   );

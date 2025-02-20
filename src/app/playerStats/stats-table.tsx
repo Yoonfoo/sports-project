@@ -68,7 +68,7 @@ export default function PlayerStatsTable () {
     }, []);
 
     return (
-        <div className="overflow-scroll border-2 rounded-2xl max-h-[calc(100vh-7rem)] m-8">
+        <div className="overflow-scroll border-2 rounded-2xl max-h-[calc(100vh-4rem)] m-2 text-sm">
             <table className="table-auto min-w-max">
                 <thead>
                     <tr>
@@ -82,28 +82,28 @@ export default function PlayerStatsTable () {
                 <tbody>
                 {playerData.map((player) => (
                     <tr key={player[0]} className="border-b-2">
-                        <td className="pl-4 sticky left-0 bg-slate-200">{player[1]} {player[2]}</td>
-                        <td className="w-20 h-12 text-center">{player[4]}</td>
-                        <td className="w-20 h-12 text-center">{player[5]}</td>
-                        <td className="w-20 h-12 text-center">{player[6]}</td>
-                        <td className="w-20 h-12 text-center">{player[23]}</td>
-                        <td className="w-20 h-12 text-center">{player[7]}</td>
-                        <td className="w-20 h-12 text-center">{player[8]}</td>
-                        <td className="w-20 h-12 text-center">{player[9]}</td>
-                        <td className="w-20 h-12 text-center">{player[10]}</td>
-                        <td className="w-20 h-12 text-center">{player[11]}</td>
-                        <td className="w-20 h-12 text-center">{player[12]}</td>
-                        <td className="w-20 h-12 text-center">{player[13]}</td>
-                        <td className="w-20 h-12 text-center">{player[14]}</td>
-                        <td className="w-20 h-12 text-center">{player[15]}</td>
-                        <td className="w-20 h-12 text-center">{player[16]}</td>
-                        <td className="w-20 h-12 text-center">{player[17]}</td>
-                        <td className="w-20 h-12 text-center">{player[18]}</td>
-                        <td className="w-20 h-12 text-center">{player[19]}</td>
-                        <td className="w-20 h-12 text-center">{player[20]}</td>
-                        <td className="w-20 h-12 text-center">{player[21]}</td>
-                        <td className="w-20 h-12 text-center">{player[22]}</td>
-                        <td className="w-20 h-12 text-center">{player[24]}</td>
+                        <td className="pr-4 sticky left-0 bg-slate-200"><span className="p-4">{player[1]}</span>{player[2]}</td>
+                        <td className="w-14 h-12 text-center">{player[4]}</td>
+                        <td className="w-14 h-12 text-center">{player[5]}</td>
+                        <td className="w-14 h-12 text-center">{player[6]}</td>
+                        <td className="w-14 h-12 text-center">{player[23]}</td>
+                        <td className="w-14 h-12 text-center">{player[7]}</td>
+                        <td className="w-14 h-12 text-center">{player[8]}</td>
+                        <td className="w-14 h-12 text-center">{player[9]}</td>
+                        <td className="w-14 h-12 text-center">{player[10]}</td>
+                        <td className="w-14 h-12 text-center">{player[11]}</td>
+                        <td className="w-14 h-12 text-center">{player[12]}</td>
+                        <td className="w-14 h-12 text-center">{player[13]}</td>
+                        <td className="w-14 h-12 text-center">{player[14]}</td>
+                        <td className="w-14 h-12 text-center">{player[15]}</td>
+                        <td className="w-14 h-12 text-center">{player[16]}</td>
+                        <td className="w-14 h-12 text-center">{player[17]}</td>
+                        <td className="w-14 h-12 text-center">{player[18]}</td>
+                        <td className="w-14 h-12 text-center">{player[19]}</td>
+                        <td className="w-14 h-12 text-center">{player[14]}</td>
+                        <td className="w-14 h-12 text-center">{player[21]}</td>
+                        <td className="w-14 h-12 text-center">{player[22]}</td>
+                        <td className="w-14 h-12 text-center">{player[24]}</td>
                     </tr>
                 ))}
                 </tbody>      

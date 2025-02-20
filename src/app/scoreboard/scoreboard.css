@@ -4,7 +4,7 @@
 
 @layer components {
   .sm-show-calendar-container {
-    @apply fixed inset-x-44 z-40 -translate-y-6;
+    @apply absolute -translate-y-11 left-1/2 -translate-x-1/2 z-40;
   }
 
   .sm-scoreboard-container {
@@ -12,7 +12,7 @@
   }
 
   .sm-scoreboard-container-flex {
-    @apply flex size-full h-20 z-10 overflow-auto;
+    @apply flex size-full h-24 z-10 overflow-auto;
   }
 
   .sm-popup-calendar-container {
@@ -20,7 +20,26 @@
   }
 
   .sm-boxscore-container {
-    @apply bg-gray-200 absolute size-full z-20 overflow-auto flex flex-row justify-center;
+    @apply z-10;
   }
 
+}
+
+@layer utilities {
+  .marquee-content {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-200%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
 }

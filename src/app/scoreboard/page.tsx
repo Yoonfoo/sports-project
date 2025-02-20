@@ -25,9 +25,6 @@ async function fetchSchedule(): Promise<schedule[]> {
         headers:{
             "referer": "http://www.nba.com/",
         },
-        next: {
-            revalidate: 3600,
-        },
     })
     if(!res.ok){
         throw new Error('Failed to fetch schedule')
