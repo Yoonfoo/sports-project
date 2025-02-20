@@ -19,7 +19,7 @@ const ScoreboardSummary: FC<ScoreboardSummaryProps> = ({todayScoreboard, teamLog
                 <div key={game.gameId} className="border-2 m-2 rounded-xl shadow-inner px-6 py-2" onClick={()=>setGameId(game.gameId)}>
                     <div className="flex flex-row justify-start px-2 py-2">
                         {/* <span className="text-md">{game.gameLabel}&nbsp;</span> */}
-                        <span className="text-md">{game.gameStatusText} {game.gameClock}</span>
+                        <span className="text-md">{game.gameStatusText} {'gameClock' in game && game.gameClock}</span>
                     </div>
                     <div className="flex flex-row justify-center items-center">
                         <div className="p-2">
@@ -43,7 +43,7 @@ const ScoreboardSummary: FC<ScoreboardSummaryProps> = ({todayScoreboard, teamLog
                 <div key={game.gameId} className="border-2 m-1 rounded-lg" onClick={()=>setGameId(game.gameId)}>
                     <div className="flex flex-row justify-start">
                         <span className="text-sm">{game.gameLabel}&nbsp;</span>
-                        <span className="text-sm p-1">{game.gameStatusText} {game.gameClock}</span>
+                        <span className="text-sm p-1">{game.gameStatusText} {'gameClock' in game && game.gameClock}</span>
                     </div>
                     <div className="flex flex-row justify-center items-center px-4 py-1">
                         <div className="">
