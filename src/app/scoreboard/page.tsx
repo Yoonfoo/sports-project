@@ -1,5 +1,5 @@
 import Links from "../../../projectLinks/links";
-import BoxScoreMain from "./boxscore-main";
+import MainLayout from "./mainLayout";
 import { todayScoreboards, schedule } from "../../../interface-definition/scoreboard-interface";
 
 async function getTodayScoreboard(): Promise<todayScoreboards> {
@@ -8,9 +8,6 @@ async function getTodayScoreboard(): Promise<todayScoreboards> {
         headers:{
             "referer": "https://www.nba.com/",
         },
-        next: {
-            revalidate: 10
-        }
     })
     if(!res.ok){
         throw new Error('Failed to fetch today scoreboard')
@@ -34,14 +31,24 @@ async function fetchSchedule(): Promise<schedule[]> {
     return schedules
 }
 
-export default async function Scoreboard(){
-    
+async function fetchStanding(): Promise<any> {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/standings`)
+    if(!res.ok){
+        throw new Error('Failed to fetch standings')
+    }
+    const data = await res.json()
+    return data
+}
+    export default async function Scoreboard(){
+
+    const standings = await fetchStanding()
     const todayScoreboards = await getTodayScoreboard()
     const schedules = await fetchSchedule()
     const teamLogos = Links.TEAM_LOGO as Record<string, string>
-
+    console.log(standings)
+    
     return(
-        <BoxScoreMain todayScoreboard={todayScoreboards} teamLogos={teamLogos} schedules={schedules}/>
+        <MainLayout todayScoreboard={todayScoreboards} teamLogos={teamLogos} schedules={schedules}/>
     )
 }
 
