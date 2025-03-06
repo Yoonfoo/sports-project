@@ -1,4 +1,4 @@
-import { todayScoreboards, scoreboard } from "../../../../../interface-definition/scoreboard-interface";
+import { todayScoreboards } from "../../../../../interface-definition/scoreboard-interface";
 
 export async function GET() {
     const res = await fetch('https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json', {
