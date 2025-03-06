@@ -8,7 +8,7 @@
   }
 
   .sm-scoreboard-container {
-    @apply z-10 overflow-auto;
+    @apply z-10 overflow-auto m-2;
   }
 
   .sm-scoreboard-container-flex {
@@ -23,6 +23,9 @@
     @apply z-10;
   }
 
+  .lg-scoreboard-container {
+    @apply grid grid-cols-4;
+  }
 }
 
 @layer utilities {

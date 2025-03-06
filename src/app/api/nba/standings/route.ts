@@ -3,7 +3,8 @@ export async function GET() {
         method: 'GET',
         headers: {
             // 'host': 'stats.nba.com',
-            'referer': 'https://www.nba.com/',
+            'Origin': 'https://www.nba.com',
+            // 'referer': 'https://www.nba.com/',
         },
     })
     const data = await res.json()

@@ -2,24 +2,24 @@ import { FC } from "react";
 import Image from "next/image"
 import { game, todayScoreboards, scoreboard } from "../../../interface-definition/scoreboard-interface";
 
-type ScoreboardSummaryProps = {
+type ScoreboardProps = {
     todayScoreboard: todayScoreboards | game[],
     teamLogos: Record<string, string>
     setGameId: (gameId: string) => void
     main: boolean
 }
 
-const ScoreboardSummary: FC<ScoreboardSummaryProps> = ({todayScoreboard, teamLogos, setGameId, main}) => {
+const Scoreboard: FC<ScoreboardProps> = ({todayScoreboard, teamLogos, setGameId, main}) => {
 
     return(
         <>
         {
             main
             ? todayScoreboard?.map((game:game | scoreboard) => (
-                <div key={game.gameId} className="border-2 m-2 rounded-xl shadow-inner px-6 py-2" onClick={()=>setGameId(game.gameId)}>
+                <div key={game.gameId} className="border-2 m-2 rounded-xl shadow-inner px-6 py-2" onClick={()=>{setGameId(game.gameId)}}>
                     <div className="flex flex-row justify-start px-2 py-2">
                         {/* <span className="text-md">{game.gameLabel}&nbsp;</span> */}
-                        <span className="text-md">{game.gameStatusText} {'gameClock' in game && game.gameClock}</span>
+                        <span className="text-md">{game.gameStatusText}</span>
                     </div>
                     <div className="flex flex-row justify-center items-center">
                         <div className="p-2">
@@ -68,4 +68,4 @@ const ScoreboardSummary: FC<ScoreboardSummaryProps> = ({todayScoreboard, teamLog
     )
 }
 
-export default ScoreboardSummary
+export default Scoreboard
