@@ -8,6 +8,6 @@ export async function GET() {
     }
 
     const data = await res.json();
-    const sortedData = data.scoreboard.games.sort((a, b) => a.gameId.localeCompare(b.gameId));
+    const sortedData = data.scoreboard.games.sort((a:any, b:any) => a.gameId.localeCompare(b.gameId));
     return Response.json(sortedData);
 }

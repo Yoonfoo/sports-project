@@ -63,15 +63,15 @@ export default function MainLayout({todayScoreboard, teamLogos, schedules}: Main
         
     }, []);
 
-    const updateHistoryState = () => {
-        window.history.pushState(
-            {
-                selectedGameBoxScore: selectedGameBoxScore,
-                latestMatches: latestMatches,
-            },
-            ''
-        );
-    };
+    // const updateHistoryState = () => {
+    //     window.history.pushState(
+    //         {
+    //             selectedGameBoxScore: selectedGameBoxScore,
+    //             latestMatches: latestMatches,
+    //         },
+    //         ''
+    //     );
+    // };
 
     const handleShowCalendar = () => {
         setShowCalendar(prev => !prev)
@@ -88,6 +88,7 @@ export default function MainLayout({todayScoreboard, teamLogos, schedules}: Main
         const latestMatch = schedules?.find((game) => game.gameDate == day);
         setShowCalendar(false);
         setLatestMatches(latestMatch ? latestMatch.games : []);
+        console.log(latestMatches)
         // window.history.pushState({latestMatches:latestMatches}, '', '/scoreboard')
     }
     
@@ -104,7 +105,7 @@ export default function MainLayout({todayScoreboard, teamLogos, schedules}: Main
                 </div>)
                 }
             </>
-    ), [todayMatches, selectedGameBoxScore]);
+    ), [todayMatches, selectedGameBoxScore, teamLogos]);
 
     return(
         <div>
