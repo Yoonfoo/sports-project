@@ -39,14 +39,15 @@ async function fetchStanding(): Promise<any> {
     const data = await res.json()
     return data
 }
-    export default async function Scoreboard(){
+
+export default async function Scoreboard(){
 
     const standings = await fetchStanding()
     const todayScoreboards = await getTodayScoreboard()
     const schedules = await fetchSchedule()
     const teamLogos = Links.TEAM_LOGO as Record<string, string>
     console.log(standings)
-    
+
     return(
         <MainLayout todayScoreboard={todayScoreboards} teamLogos={teamLogos} schedules={schedules}/>
     )

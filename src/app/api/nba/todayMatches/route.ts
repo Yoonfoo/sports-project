@@ -1,3 +1,5 @@
+import { todayScoreboards } from "../../../../../interface-definition/scoreboard-interface";
+
 export async function GET() {
     const res = await fetch('https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json', {
         headers: { "referer": "https://www.nba.com/" },
@@ -8,6 +10,6 @@ export async function GET() {
     }
 
     const data = await res.json();
-    const sortedData = data.scoreboard.games.sort((a:any, b:any) => a.gameId.localeCompare(b.gameId));
+    const sortedData:todayScoreboards = data.scoreboard.games.sort((a:any, b:any) => a.gameId.localeCompare(b.gameId));
     return Response.json(sortedData);
 }
