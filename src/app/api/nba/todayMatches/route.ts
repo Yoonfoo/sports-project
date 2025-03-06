@@ -1,4 +1,4 @@
-import { todayScoreboards } from "../../../../../interface-definition/scoreboard-interface";
+import { todayScoreboards, scoreboard } from "../../../../../interface-definition/scoreboard-interface";
 
 export async function GET() {
     const res = await fetch('https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json', {
@@ -10,6 +10,6 @@ export async function GET() {
     }
 
     const data = await res.json();
-    const sortedData:todayScoreboards = data.scoreboard.games.sort((a:any, b:any) => a.gameId.localeCompare(b.gameId));
+    const sortedData: todayScoreboards = data.scoreboard.games.sort((a: { gameId: string }, b: { gameId: string }) => a.gameId.localeCompare(b.gameId));
     return Response.json(sortedData);
 }

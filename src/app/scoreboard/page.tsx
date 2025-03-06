@@ -1,6 +1,7 @@
 import Links from "../../../projectLinks/links";
 import MainLayout from "./mainLayout";
 import { todayScoreboards, schedule } from "../../../interface-definition/scoreboard-interface";
+import { teamStandings } from "../../../interface-definition/standings-type";
 
 async function getTodayScoreboard(): Promise<todayScoreboards> {
 
@@ -31,7 +32,7 @@ async function fetchSchedule(): Promise<schedule[]> {
     return schedules
 }
 
-async function fetchStanding(): Promise<any> {
+async function fetchStanding(): Promise<teamStandings> {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/nba/standings`)
     if(!res.ok){
         throw new Error('Failed to fetch standings')
