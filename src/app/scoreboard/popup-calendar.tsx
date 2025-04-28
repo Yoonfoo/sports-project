@@ -1,107 +1,110 @@
-'use client'
+import {
+    format,
+    addMonths,
+    subMonths,
+    startOfMonth,
+    endOfMonth,
+    startOfWeek,
+    endOfWeek,
+    addDays,
+    isSameMonth,
+    isSameDay
+} from 'date-fns';
+import React from 'react';
+import { useState, useMemo } from 'react';
 
-import React, { useState } from 'react';
-import { eachDayOfInterval } from 'date-fns';
-
-interface PopupCalendarProps {
-    setSelectedDate: (date: string) => void;
-
+interface CalendarProps {
+    setDate: (date: Date) => void;
+    date: Date;
 }
 
-const PopupCalendar: React.FC<PopupCalendarProps> = ({ setSelectedDate }) => {
+export default function PopupCalendar({setDate, date}:CalendarProps) {
+    const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-    const [selectedYear] = useState<string>(new Date().getFullYear().toString());
-    const [selectedMonth] = useState<string>((new Date().getMonth()+1).toString());
+    const nextMonth = () : void => setCurrentMonth(addMonths(currentMonth, 1));
+    const prevMonth = () : void => setCurrentMonth(subMonths(currentMonth, 1));
 
-    const generateCalendarDays = (year:number, month:number) => {
-        const monthInterval = eachDayOfInterval({
-            start: new Date(year, month-1),
-            end: new Date(year, month, 0)
-        })
-
-        while(monthInterval[0].getDay() != 0){
-            monthInterval.unshift(new Date(
-                monthInterval[0].getFullYear(), 
-                monthInterval[0].getMonth(), 
-                monthInterval[0].getDate() - 1
-            ))    
-        }
-
-        while(monthInterval[monthInterval.length-1].getDay() != 6){
-            monthInterval.push(new Date(
-                monthInterval[monthInterval.length-1].getFullYear(), 
-                monthInterval[monthInterval.length-1].getMonth(), 
-                monthInterval[monthInterval.length-1].getDate() + 1
-            ))
-        }
-
-        return monthInterval
-    }
-
-    const handleDateSelect = (day: string) => {
-        const date = `${selectedMonth.padStart(2,'0')}/${day.padStart(2,'0')}/${selectedYear} 00:00:00`;
-        console.log(date)
-        setSelectedDate(date)
-    }
-
-    const currentMonthInterval = generateCalendarDays(new Date().getFullYear(), new Date().getMonth() + 1)
-    const firstWeek = currentMonthInterval.slice(0, 7)
-    const secondWeek = currentMonthInterval.slice(7, 14)
-    const thirdWeek = currentMonthInterval.slice(14, 21)
-    const fourthWeek = currentMonthInterval.slice(21, 28)
-    const fifthWeek = currentMonthInterval.slice(28, 35)
-
-    return (
-        <div className="w-96 h-96 rounded-3xl shadow-2xl bg-blue-200 flex flex-col justify-center">
-            <div className="flex justify-center">
-                <input type='text' placeholder='ex: 2024-3-12' className='py-2 w-4/5 border-black border-2'></input>
+    const renderHeader = () => (
+        <div className="flex justify-between items-center p-2">
+            <div className="w-8 h-8 cursor-pointer hover:bg-blue-300 rounded-full" onClick={prevMonth}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#000" d="M15.41 16.58L10.83 12l4.58-4.59L14 6l-6 6l6 6z"/></svg>
             </div>
-            <div className="flex flex-row justify-center">
-                <div className="p-4 w-12 h-12">SUN</div>
-                <div className="p-4 w-12 h-12">MON</div>
-                <div className="p-4 w-12 h-12">TUE</div>
-                <div className="p-4 w-12 h-12">WED</div>
-                <div className="p-4 w-12 h-12">THU</div>
-                <div className="p-4 w-12 h-12">FRI</div>
-                <div className="p-4 w-12 h-12">SAT</div>
-            </div>
-            <div className="flex flex-row justify-center">
-                {firstWeek.map((date, index) => (
-                    <button key={index} className="p-4 w-12 h-12 border-black border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
-                        {date.getDate()}
-                    </button>
-                ))}
-            </div>
-            <div className="flex flex-row justify-center">
-                {secondWeek.map((date, index) => (
-                    <button key={index} className="p-4 w-12 h-12 border-black border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
-                        {date.getDate()}
-                    </button>
-                ))}
-            </div>
-            <div className="flex flex-row justify-center">
-                {thirdWeek.map((date, index) => (
-                    <button key={index} className="p-4 w-12 h-12 border-black border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
-                        {date.getDate()}
-                    </button>
-                ))}
-            </div>
-            <div className="flex flex-row justify-center">
-                {fourthWeek.map((date, index) => (
-                    <button key={index} className="p-4 w-12 h-12 border-black border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
-                        {date.getDate()}
-                    </button>
-                ))}
-            </div>
-            <div className="flex flex-row justify-center">
-                {fifthWeek.map((date, index) => (
-                    <button key={index} className="p-4 w-12 h-12 border-black border hover:bg-black hover:text-white" onClick={()=>handleDateSelect(date.getDate().toString())}>
-                        {date.getDate()}
-                    </button>
-                ))}
+            <span>{format(currentMonth, 'MMMM yyyy')}</span>
+            <div className="w-8 h-8 cursor-pointer hover:bg-blue-300 rounded-full" onClick={nextMonth}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#000" d="M8.59 16.58L13.17 12L8.59 7.41L10 6l6 6l-6 6z"/></svg>
             </div>
         </div>
     )
-}
 
-export default PopupCalendar;
+    const renderDays = () => {
+        const days: React.JSX.Element[] = [];
+        const startDate = startOfWeek(currentMonth);
+
+        for(let i = 0; i < 7; i++) {
+            days.push(
+                <div className="flex w-10 h-12 justify-center items-center text-center" key={i}>
+                    {format(addDays(startDate, i), 'EEE')}
+                </div>
+            )
+        }
+        return <div className="flex">{days}</div>
+    }
+
+    const renderCells = () => {
+        const monthStart = startOfMonth(currentMonth);
+        const monthEnd = endOfMonth(monthStart);
+        const startDate = startOfWeek(monthStart);
+        const endDate = endOfWeek(monthEnd);
+
+        const rows: React.JSX.Element[] = [];
+        let days: React.JSX.Element[] = [];
+        let day = startDate;
+
+        while (day <= endDate) {
+            for(let i = 0; i < 7;i++) {
+                const formattedDate = format(day, 'd');
+                const cloneDay = day;
+
+                days.push(
+                    <div key={cloneDay.toString()}
+                        className={`w-10 h-10 flex items-center justify-center cursor-pointer hover:bg-blue-300 hover:rounded-full
+                            ${!isSameMonth(day, monthStart) ? 'text-gray-400' : ''}
+                            ${isSameDay(day, date) ? 'bg-blue-500 text-white rounded-full' : ''}`}
+                        onClick={() => {
+                            setSelectedDate(cloneDay);
+                            setDate(cloneDay);
+                        }}
+                        >
+                        {formattedDate}
+                    </div>
+                )
+                
+                day = addDays(day, 1);
+            }
+
+            rows.push(
+                <div className="flex justify-center" key={day.toString()}>
+                    {days}
+                </div>
+            );
+
+            days = [];
+        }
+
+        return <div className="bg-slate-300 rounded-lg">{rows}</div>
+    }
+
+    const header = useMemo(() => renderHeader(), [currentMonth]);
+    const days = useMemo(() => renderDays(), [currentMonth]);
+    const cells = useMemo(() => renderCells(), [currentMonth, selectedDate]);
+
+    return (
+        <div className="w-80 h-max p-4 shadow-2xl rounded-lg bg-slate-200 border-2">
+            {header}
+            {days}
+            {cells}
+        </div>
+    )
+
+}
