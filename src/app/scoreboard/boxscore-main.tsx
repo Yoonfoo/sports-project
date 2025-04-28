@@ -21,9 +21,7 @@ export default function BoxScoreMain({todayScoreboard, teamLogos, schedules}: Bo
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
     const [selectedGameBoxScore, setSelectedGameBoxScore] = useState<boxscoreGame>()
     const [selectedGameBoxScoreDiv, setSelectedGameBoxScoreDiv] = useState<string>("")
-    const [selectedDatePrev, setSelectedDatePrev] = useState<Date>(subDays(new Date(), 1));
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-    const [selectedDateNext, setSelectedDateNext] = useState<Date>(addDays(new Date(), 1));
     const [selectedMatchesPrev, setSelectedMatchesPrev] = useState<todayScoreboards | game[]>([])
     const [selectedMatches, setSelectedMatches] = useState<todayScoreboards | game[]>(todayScoreboard)
     const [selectedMatchesNext, setSelectedMatchesNext] = useState<todayScoreboards | game[]>([])
@@ -102,7 +100,7 @@ export default function BoxScoreMain({todayScoreboard, teamLogos, schedules}: Bo
 
             {selectedGameBoxScore 
             ?
-                <div id="scoreboard" className="flex gap-2 py-2 px-2 overflow-x-auto sticky top-0 bg-slate-600">
+                <div id="scoreboard" className="flex gap-2 py-2 px-2 overflow-x-auto sticky top-0 bg-slate-600 z-10">
                     {horizontalScoreboard}
                 </div>
                 :
